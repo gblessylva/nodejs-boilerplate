@@ -4,7 +4,7 @@
   "description": "A boiler plate for node js server using express and mongoose",
   "main": "src/app.js",
   "scripts": {
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon --exec babel-node src/app.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -15,9 +15,11 @@
     "eslint-plugin-import": "^2.20.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
     "nodemon": "^2.0.2"
   },
   "author": "gblessylva",
   "license": "ISC"
 }
-

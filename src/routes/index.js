@@ -43,7 +43,7 @@ router.post('/api/v1/user', async (req, res) => {
         last_name, 
         date_registered : Date.now(), 
         phone,
-        active: true,
+        status: "active",
         role: "user"
       })
       return res.status(201).json(user)
@@ -57,8 +57,8 @@ router.post('/api/v1/user', async (req, res) => {
 //Get one User
 router.get('/api/v1/user/:id', async (req, res) => {
   try {
-      const _user_name =req.params.user_name
-      const user = await User.findOne({_user_name})
+      const _id =req.params.id
+      const user = await User.findById({_id})
       if(!user){
         return res.status(404).json("No such User Found")
       } else {
@@ -73,11 +73,11 @@ router.get('/api/v1/user/:id', async (req, res) => {
 })
 
 //Edit User
-router.put('/api/v1/user/:id', async(req, res)=>{
+router.patch('/api/v1/user/:id', async(req, res)=>{
   try{
-    const _user_name = req.params.user_name
-    const user = await User.findOne({_user_name})
-    const {user_name, email, first_name, last_name, phone} = req.body
+    const _id = req.params.id
+    const user = await User.findByIdAndUpdate({_id})
+    const {user_name, email, first_name, last_name, role,   phone, status} = req.body
     if (!user){
       await user.create({
         user_name,
@@ -85,9 +85,8 @@ router.put('/api/v1/user/:id', async(req, res)=>{
         first_name, 
         last_name,
         phone,
-        active: true,
-        role, 
-        date_registered: Date.now()
+        status,
+        role
       })
       return res.status(201).json(user)
     }
@@ -98,7 +97,7 @@ router.put('/api/v1/user/:id', async(req, res)=>{
       user.last_name= last_name 
       user.phone = phone,
       user.role = role,
-      user.active = active
+      user.status = status
       await user.save()
       console.log(user)
       return res.status(201).json(user)
@@ -113,8 +112,8 @@ router.put('/api/v1/user/:id', async(req, res)=>{
 
 router.delete('/api/v1/user/:id', async (req, res)=>{
   try{
-    const _user_name = req.params.user_name
-    const user = await User.deleteOne({_user_name})
+    const _id = req.params.id
+    const user = await User.findByIdAndDelete(req.params.id)
 
     if(user.deletedCount === 0){
       return res.status(404).send('no such user found')
