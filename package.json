@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "dotenv": "^8.2.0",
     "mongoose": "^5.8.11",
     "eslint-config-airbnb-base": "^14.1.0",
